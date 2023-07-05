@@ -46,7 +46,7 @@ const user = require("./controller/user");
 
 // ...
 
-app.use("/api/v2/users", user);
+app.use("/api/v2/user", user);
 
 
 

@@ -7,6 +7,16 @@ import axios from "axios"
 import { server } from "../../server";
 import { toast } from "react-toastify";
 
+// class ErrorHandler extends Error {
+//   constructor(message, statusCode) {
+//     super(message);
+//     this.name = this.constructor.name;
+//     this.statusCode = statusCode;
+//     Error.captureStackTrace(this, this.constructor);
+//   }
+// }
+
+
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -16,7 +26,7 @@ const Signup = () => {
   const [avatar, setAvatar] = useState(null);
 
 
-
+  
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -32,7 +42,7 @@ const Signup = () => {
     newForm.append("name", name);
     newForm.append("email", email);
     newForm.append("password", password);
-
+  
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
@@ -41,14 +51,30 @@ const Signup = () => {
         setEmail("");
         setPassword("");
         setAvatar();
+  
       })
+      
       .catch((error) => {
-        // toast.error(error.response.data.message);
-        console.log("this is an error")
+        console.log("This is an error")
       });
-
+      
+      // try {
+      //   const response = await axios.post(`${server}/user/create-user`, newForm, config);
+      //   toast.success(response.data.message);
+      //   setName("");
+      //   setEmail("");
+      //   setPassword("");
+      //   setAvatar(null);
+      // } catch (error) {
+      //   console.log("An error occurred:", error);
+      //   const errorMessage = "An error occurred. Please try again.";
+      //   const statusCode = error.response ? error.response.status : null;
+      //   const errorHandler = new ErrorHandler(errorMessage, statusCode);
+      //   toast.error(errorHandler);
+      // }
+      
+        
   }
-
 
 
   return (
